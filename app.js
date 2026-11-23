@@ -287,7 +287,7 @@
               <p><strong>CTA:</strong> ${esc(it.cta || '—')}</p>
               <p><strong>Rater reasoning:</strong> ${esc(it.raterWhy || '—')}</p>
               ${it.urlSlug ? `<h4 style="margin-top:8px">SEO Metadata</h4><p><strong>URL slug:</strong> <code>${esc(it.urlSlug)}</code></p><p><strong>Meta title (${it.metaTitle ? it.metaTitle.length : 0}c):</strong> ${esc(it.metaTitle || '—')}</p><p><strong>Meta desc (${it.metaDescription ? it.metaDescription.length : 0}c):</strong> ${esc(it.metaDescription || '—')}</p>` : ''}
-              ${it.qaNote ? `<p><strong>QA note:</strong> ${esc(it.qaNote)}</p>` : ''}
+              ${(it.qaNote || (it.qaFlag && it.qaFlag.includes(':'))) ? `<p><strong>QA note:</strong> ${esc(it.qaNote || it.qaFlag)}</p>` : ''}
               <div class="ks-detail-actions">
                 <button class="button btn-sm ${dec === 'approved' ? 'primary' : ''}" data-act="approve" data-uid="${esc(it.uid)}">${dec === 'approved' ? '✓ Approved' : 'Approve'}</button>
                 <button class="button btn-sm" data-act="defer" data-uid="${esc(it.uid)}">Defer</button>
@@ -371,7 +371,7 @@
             ${c.intent ? `<td class="ks-clip" title="${esc(it.intent)}">${esc(it.intent || '—')}</td>` : ''}
             ${c.overlap ? `<td><span class="ks-risk ks-risk-${esc(riskKey)}">${esc(it.overlapRisk || '—')}</span></td>` : ''}
             ${c.counts ? `<td class="ks-num">${it.searchCount} / ${it.questionCount}</td>` : ''}
-            ${c.qa ? `<td>${it.qaFlag ? `<span class="ks-badge">${esc(it.qaFlag)}</span>` : '<span class="muted">—</span>'}</td>` : ''}
+            ${c.qa ? `<td>${it.qaFlag ? `<span class="ks-badge" title="${esc(it.qaFlag)}">${esc(it.qaFlag.split(':')[0].trim())}</span>` : '<span class="muted">—</span>'}</td>` : ''}
             <td><span class="ks-decision ks-decision-${dec}">${dec}</span></td>
           </tr>`;
         return mainRow + (isExp ? renderDetailRow(it, colSpan) : '');
