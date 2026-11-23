@@ -286,6 +286,7 @@
               <h4>Conversion &amp; Reader Intent</h4>
               <p><strong>CTA:</strong> ${esc(it.cta || '—')}</p>
               <p><strong>Rater reasoning:</strong> ${esc(it.raterWhy || '—')}</p>
+              ${it.urlSlug ? `<h4 style="margin-top:8px">SEO Metadata</h4><p><strong>URL slug:</strong> <code>${esc(it.urlSlug)}</code></p><p><strong>Meta title (${it.metaTitle ? it.metaTitle.length : 0}c):</strong> ${esc(it.metaTitle || '—')}</p><p><strong>Meta desc (${it.metaDescription ? it.metaDescription.length : 0}c):</strong> ${esc(it.metaDescription || '—')}</p>` : ''}
               ${it.qaNote ? `<p><strong>QA note:</strong> ${esc(it.qaNote)}</p>` : ''}
               <div class="ks-detail-actions">
                 <button class="button btn-sm ${dec === 'approved' ? 'primary' : ''}" data-act="approve" data-uid="${esc(it.uid)}">${dec === 'approved' ? '✓ Approved' : 'Approve'}</button>
@@ -561,11 +562,11 @@
           <h3>TCP Keyword Discovery Engine (100% Standalone)</h3>
           <p><strong>Engine:</strong> ${esc(DATA.engine || 'topic-miner')}</p>
           <ol class="method-list">
-            <li><strong>Live-site registry:</strong> Match every candidate against current <code>thecreditpeople.com</code> live pages (excluding removed/redirected URLs) to separate net-new pages from updates to existing pages.</li>
-            <li><strong>Loop-until-dry harvest:</strong> DataForSEO Google SERPs + 2-level People Also Ask + Autocomplete &amp; modifiers + Labs keyword ideas/volumes + top-10 page headings/FAQs + competitor sitemaps.</li>
-            <li><strong>Pattern &amp; entity expansion:</strong> Expand <code>{bureau}</code>, <code>{collector}</code>, <code>{loan_type}</code>, <code>{state}</code>, and <code>{a} vs {b}</code> comparisons with proof-link verification.</li>
-            <li><strong>Semantic &amp; SERP grouping:</strong> Fold same-wording duplicates, flag same-meaning pairs, and group queries sharing 3+ top-10 Google URLs into one page candidate.</li>
-            <li><strong>Dual-rater commercial QA:</strong> Two independent raters score every page 1–10 for TCP conversion potential, reader intent, CTA, and overlap risk.</li>
+            <li><strong>Live-site registry &amp; v46 removed-URL gate:</strong> Match every candidate against current <code>thecreditpeople.com</code> live pages (excluding v46-removed URLs) to separate net-new pages from updates to existing pages.</li>
+            <li><strong>90/10 saturation harvest ($0 session engine):</strong> Multi-round query expansion + competitor sitemap &amp; index scraping (Experian, Equifax, TransUnion, CFPB, Credit Karma, NerdWallet, Bankrate, MyFICO, Credit.com, Lexington Law) until new-idea yield saturates.</li>
+            <li><strong>Pattern &amp; entity expansion:</strong> Expand <code>{bureau}</code>, <code>{collector}</code>, <code>{loan_type}</code>, <code>{score_band}</code>, and <code>{a} vs {b}</code> comparisons across all 6 TCP categories.</li>
+            <li><strong>2-layer &amp; cross-category semantic deduplication:</strong> Fold same-wording and same-intent pairs inside each category AND across all 6 categories into one canonical home page.</li>
+            <li><strong>Dual-rater commercial QA &amp; SEO metadata:</strong> Two independent raters score every page 1–10 for TCP conversion potential, reader intent, CTA, grounded FAQs, competitor references, URL slug, meta title (&le;60c), and meta description (&le;155c).</li>
           </ol>
         </div>
         <div class="ks-dash-section">
@@ -617,7 +618,7 @@
 
   function exportCsv() {
     const rows = filteredItems();
-    const cols = ['id', 'category', 'bucket', 'priority', 'score', 'raterA', 'raterB', 'title', 'keyword', 'pageType', 'intent', 'cta', 'overlapRisk', 'matchingUrl', 'headingToAdd', 'searchCount', 'questionCount', 'qaFlag'];
+    const cols = ['id', 'category', 'bucket', 'priority', 'score', 'raterA', 'raterB', 'title', 'keyword', 'urlSlug', 'metaTitle', 'metaDescription', 'pageType', 'intent', 'cta', 'overlapRisk', 'matchingUrl', 'headingToAdd', 'searchCount', 'questionCount', 'qaFlag'];
     const csvCell = (v) => {
       const s = String(v == null ? '' : v);
       return /[",\n]/.test(s) ? '"' + s.replaceAll('"', '""') + '"' : s;
