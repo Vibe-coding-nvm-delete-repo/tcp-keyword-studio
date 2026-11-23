@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Credit People — Keyword &amp; Content Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <button class="nav-toggle-btn" id="nav-toggle" aria-label="Toggle navigation" title="Toggle navigation">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="nav-backdrop" id="nav-backdrop"></div>
+
+    <aside class="sidebar" id="sidebar" aria-label="Workspace navigation">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">TCP</div>
+          <div class="brand-text">
+            The Credit People
+            <small>thecreditpeople.com</small>
+          </div>
+        </div>
+        <button class="sidebar-close-btn" id="nav-close" aria-label="Close navigation">✕</button>
+      </div>
+
+      <nav>
+        <div class="nav-group-label">DISCOVERY</div>
+        <button data-nav="sheet" class="selected">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          <span class="nav-label">Keyword ideas</span>
+        </button>
+        <button data-nav="dashboard">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          <span class="nav-label">Dashboard</span>
+        </button>
+        <button data-nav="approved">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="nav-label">Approved queue</span>
+        </button>
+
+        <div class="nav-group-label">PIPELINE</div>
+        <button data-nav="categories">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          <span class="nav-label">Category roadmap</span>
+        </button>
+        <button data-nav="method">
+          <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span class="nav-label">Engine &amp; method</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <strong>TCP-Only Workspace</strong>
+        <small id="sidebar-meta">Loading dataset...</small>
+      </div>
+    </aside>
+
+    <main id="workspace">
+      <div class="ks-container">
+        <div class="ks-header">
+          <div class="ks-header-left">
+            <span class="eyebrow" id="page-eyebrow">THECREDITPEOPLE.COM · PAGE CANDIDATE SHEET</span>
+            <h1 class="ks-title" id="page-title">Keyword ideas</h1>
+          </div>
+          <div class="ks-header-actions" id="sheet-header-actions">
+            <details class="ks-colmenu" id="ks-colmenu">
+              <summary class="button">Columns</summary>
+              <div class="ks-colmenu-body">
+                <label><input type="checkbox" data-col="pageType" checked> Page type</label>
+                <label><input type="checkbox" data-col="intent" checked> Reader intent</label>
+                <label><input type="checkbox" data-col="raters" checked> Raters (A/B)</label>
+                <label><input type="checkbox" data-col="overlap" checked> Overlap risk</label>
+                <label><input type="checkbox" data-col="counts" checked> Searches / FAQs</label>
+                <label><input type="checkbox" data-col="qa" checked> QA flag</label>
+              </div>
+            </details>
+            <button class="button" id="btn-export-csv">Export CSV</button>
+            <button class="button" id="btn-clear-filters">Clear filters</button>
+            <button class="button primary" id="btn-approve-selected" disabled>Approve selected (0)</button>
+          </div>
+        </div>
+
+        <div class="ks-category-tabs" id="ks-category-tabs" role="tablist" aria-label="TCP Categories"></div>
+
+        <div class="ks-stats" id="ks-stats"></div>
+
+        <section id="view-sheet">
+          <div class="ks-toolbar" id="ks-toolbar">
+            <input id="ks-search-input" class="ks-input ks-search" type="search" placeholder="Search title, main keyword, intent, CTA, matching URL, or QA note..." autocomplete="off">
+            <div class="ks-toolbar-right">
+              <label class="ks-inline">Action
+                <select id="ks-bucket-select" class="ks-select">
+                  <option value="all">All buckets</option>
+                  <option value="new_page" selected>New page ideas</option>
+                  <option value="add_to_existing">Add to existing page</option>
+                  <option value="already_covered">Already covered</option>
+                  <option value="merged_duplicate">Merged duplicates</option>
+                  <option value="not_kept">Not kept</option>
+                </select>
+              </label>
+              <label class="ks-inline">Min score
+                <select id="ks-score-select" class="ks-select">
+                  <option value="">Any</option>
+                  <option value="9">9.0+</option>
+                  <option value="8">8.0+</option>
+                  <option value="7">7.0+</option>
+                  <option value="5">5.0+</option>
+                </select>
+              </label>
+              <label class="ks-inline">Decision
+                <select id="ks-decision-select" class="ks-select">
+                  <option value="">Any</option>
+                  <option value="approved">Approved</option>
+                  <option value="deferred">Deferred</option>
+                  <option value="pending">Unreviewed</option>
+                </select>
+              </label>
+              <label class="ks-inline">Rows
+                <select id="ks-page-size" class="ks-select">
+                  <option value="50">50</option>
+                  <option value="100" selected>100</option>
+                  <option value="250">250</option>
+                </select>
+              </label>
+              <span class="muted ks-count" id="ks-range-info">Loading...</span>
+            </div>
+          </div>
+
+          <div class="ks-table-card" id="ks-table-card">
+            <div class="ks-sheet-scroll" id="ks-sheet-scroll">
+              <table class="ks-sheet" id="ks-sheet">
+                <thead>
+                  <tr class="ks-head-row" id="ks-head-row"></tr>
+                  <tr class="ks-filter-row" id="ks-filter-row"></tr>
+                </thead>
+                <tbody id="ks-table-body">
+                  <tr><td class="ks-empty">Loading TCP keyword candidates...</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="ks-pagination">
+              <div id="ks-page-info">Page 1 of 1</div>
+              <div class="ks-page-actions">
+                <button class="button" id="btn-prev" disabled>Previous</button>
+                <button class="button" id="btn-next" disabled>Next</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="view-dashboard" hidden></section>
+        <section id="view-categories" hidden></section>
+        <section id="view-method" hidden></section>
+      </div>
+    </main>
+  </div>
+
+  <script src="data/tcp-keywords-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
